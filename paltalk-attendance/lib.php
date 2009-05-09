@@ -11,9 +11,10 @@ function get_parsed_usernames_and_text($logtext)
     $parsed_log_array = array();
     foreach ($log_array as $log_row) {
         $matches = array();
-        preg_match($pattern, $log_row, $matches);
-        list(, $username, $text) = $matches;
-        $parsed_log_array[] = array('username' => $username, 'text' => $text);
+        if (preg_match($pattern, $log_row, $matches)) {
+            list(, $username, $text) = $matches;
+            $parsed_log_array[] = array('username' => $username, 'text' => $text);
+        }
     }
     return $parsed_log_array;
 }
