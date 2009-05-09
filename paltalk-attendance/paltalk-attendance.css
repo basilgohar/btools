@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+
+body {
+    font-family: sans-serif;
+}
+
+label {
+    display: block;
+}
+
+textarea {
+    display: block;
+    width: 90%;
+    height: 200px;
+}
