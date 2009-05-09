@@ -39,10 +39,12 @@ $form->setAttribute('action', 'process.php');
 $form->setAttribute('method', 'post');
 $form->setAttribute('enctype', 'multipart/form-data');
 
+/*
 $form->appendChild($fileinput = new DOMElement('input'));
 
 $fileinput->setAttribute('type', 'file');
 $fileinput->setAttribute('name', 'attendance_file');
+*/
 
 $form->appendChild($label = new DOMElement('label', 'PalTalk Attendance Log'));
 $form->appendChild($textarea = new DOMElement('textarea', 'Paste attendance log here'));
