@@ -3,6 +3,8 @@
 
 require_once 'regex.inc';
 
+ini_set('memory_limit', '1G');
+
 $helptext = 'Access Log to DB script
 Copyright (c) 2009 Basil Mohamed Gohar <abu_hurayrah@hidayahonline.org>
 
