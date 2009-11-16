@@ -25,10 +25,15 @@ if (! $fp = fopen($argv[1], 'r')) {
     exit;
 }
 
+$referers_requests = array();
+
 while (false !== ($line = fgets($fp))) {
     if (! preg_match($REGEX_COMBINEDIOVHOST, $line, $matches)) {
         echo "$line\n";
     } else {
-        print_r($matches);
+        $referer = $matches[9];
+        $referers_requests[$referer][] = $matches[6];
     }
 }
+
+print_r($referers_requests);
