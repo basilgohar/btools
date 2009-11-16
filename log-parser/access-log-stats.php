@@ -39,3 +39,4 @@ while (false !== ($line = fgets($fp))) {
 }
 
 print_r($referers_requests);
+print_r(array_keys($referers_requests));
