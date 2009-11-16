@@ -7,21 +7,7 @@
  * @author Basil Mohamed Gohar <abu_hurayrah@hidayahonline.org> on Jul 26, 2009 at 7:35:17 AM
  */
 
-set_include_path(get_include_path() . PATH_SEPARATOR . ZEND_FRAMEWORK_PATH);
-
-require 'Zend/Loader.php';
-
-Zend_Loader::registerAutoload();
-
-$config = new Zend_Config(
-    array(
-        'database' => $database
-    )
-);
-
-$db = Zend_Db::factory($config->database);
-
-Zend_Db_Table::setDefaultAdapter($db);
+require_once 'zf-setup.inc';
 
 $helptext = 'Access Log to DB script
 Copyright (c) 2009 Basil Mohamed Gohar <abu_hurayrah@hidayahonline.org>
