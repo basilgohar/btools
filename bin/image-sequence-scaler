@@ -1,0 +1,90 @@
+#!/bin/bash
+
+helptext="\n
+Image sequence scaler\n
+\n
+usage: `basename $0` [options]\n
+\n
+options:\n
+\t-h\tDisplay this help page\n
+\t-n\tSpecify the aspect ratio numerator (defaults: 16)\n
+\t-d\tSpecify the aspect ratio denominator (defaults: 9)\n
+\t-a\tSpecify the vertical alignment in cases of cropping (defaults: middle)\n
+\t-r\tSpecify the vertical resolution in pixels (default: 1080)\n
+"
+
+# Prepare defaults for variables
+
+arnumerator=16
+ardenominator=9
+verticalalignment=middle
+verticalresolution=1080
+
+while getopts "hn:d:a:r:" currentopt; do
+    echo "$currentopt" $OPTIND $OPTARG
+    case $currentopt in
+        'h') # Pass the help text
+        echo -e $helptext
+        exit
+        ;;
+        'n') # Value for the aspect ratio numerator
+        arnumerator=$OPTARG
+        ;;
+        'd') # Value for the aspect ratio denominator
+        ardenominator=$OPTARG
+        ;;
+        'a') # Value for the vertical alignment - top, middle, or bottom
+        verticalalignment=$OPTARG
+        ;;
+        'r') # Value for the vertical resolution
+        verticalresolution=$OPTARG
+        ;;
+        *) # Some other crazy option was specified
+        echo 'Invalid option(s) specified. Try -h'
+        exit
+        ;;
+    esac
+done
+
+case $verticalalignment in
+    'top') # yes
+    ;;
+    'middle') # Yes
+    ;;
+    'bottom') # YES!!!!
+    ;;
+    *) # NO! NO! Invalid vertical alignment specified
+        echo 'Invalid vertical alignment specified - only "top", "middle", and "bottom" are permitted'
+        exit
+    ;;
+esac
+
+directoryname="scaled-$verticalresolution"
+
+if [ ! -d $directoryname ]; then
+    mkdir $directoryname
+fi
+
+for i in *.jpg; do
+    basename=${i%.*}
+    width=`gm identify -format '%w' $i`
+    height=`gm identify -format '%h' $i`
+    let newheight=$width*$ardenominator/$arnumerator
+    case $verticalalignment in
+        'top')
+           let top=0
+        ;;
+        'middle')
+           let top=($height-$newheight)/2
+        ;;
+        'bottom')
+           let top=($height-$newheight)
+        ;;
+    esac
+    #let top=($height-$newheight)/2
+    echo "Basename: $basename"
+    echo "Original height: $height"
+    echo "New height: $newheight"
+    echo "Top: $top"
+    jpegtopnm -quiet $i | pamcut -height $newheight -top $top | pamscale -height $verticalresolution > $directoryname/$basename.ppm
+done

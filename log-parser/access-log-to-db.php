@@ -7,26 +7,12 @@
  * @author Basil Mohamed Gohar <abu_hurayrah@hidayahonline.org> on Jul 26, 2009 at 7:35:17 AM
  */
 
-set_include_path(get_include_path() . PATH_SEPARATOR . ZEND_FRAMEWORK_PATH);
-
-require 'Zend/Loader.php';
-
-Zend_Loader::registerAutoload();
-
-$config = new Zend_Config(
-    array(
-        'database' => $database
-    )
-);
-
-$db = Zend_Db::factory($config->database);
-
-Zend_Db_Table::setDefaultAdapter($db);
+require 'setup.inc';
 
 $helptext = 'Access Log to DB script
 Copyright (c) 2009 Basil Mohamed Gohar <abu_hurayrah@hidayahonline.org>
 
-USAGE: access-log-to-db.php [options] logfile
+USAGE: access-log-to-db.php [options]
 
 Description of options:
     -h  display this help screen
@@ -37,8 +23,6 @@ Description of options:
     -d  database name
     -l  log filename
 ';
-
-$REGEX = '/^([\S]*) ([\S]*) ([\S]*) ([\S]*) \[(.*)\] "(.*)" ([\S]*) ([\S]*) "(.*)" "(.*)" ([\S]*) ([\S]*)$/';
 
 $shortoptions = '';
 $shortoptions .= 'h';   //  Display help

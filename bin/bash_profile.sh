@@ -1,0 +1,1 @@
+/home/basilgohar/.bash_profile
