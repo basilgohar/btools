@@ -3,12 +3,6 @@
 
 $start_time = microtime(true);
 
-define('REGEX_COMBINEDIOVHOST', '/^([^\s]+) ([0-9.]+) (.*) (.*) \[(.+)\] "(.*)" ([0-9]+) ([0-9-]+) "(.*)" "(.*)" ([0-9-]+) ([0-9-]+)$/');
-define('REGEX_COMBINED', '/^([0-9a-z.-]+) - (.+) \[(.+)\] "(.*)" ([0-9]+) ([0-9-]+) "(.*)" "(.*)"$/');
-define('REGEX_COMMON', '/^([0-9a-z.-]+) - (.+) \[(.+)\] "(.*)" ([0-9]+) ([0-9-]+)$/');
-
-$REGEX_COMBINEDIOVHOST = REGEX_COMBINEDIOVHOST;
-
 $count = 0;
 
 if (! isset($argv[1])) {
